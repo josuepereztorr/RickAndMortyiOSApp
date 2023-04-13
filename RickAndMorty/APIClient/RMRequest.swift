@@ -10,7 +10,6 @@ import Foundation
 /// Object that represents a single API call
 final class RMRequest {
     
-    
     /// API Constants
     private struct Constant {
         static let baseUrl = "https://rickandmortyapi.com/api"
@@ -20,7 +19,7 @@ final class RMRequest {
     private let endpoint: RMEndpoint
     
     /// Path components for API, if any
-    private let pathComponents: Set<String>
+    private let pathComponents: [String]
     
     // build in query name object type
     
@@ -81,7 +80,7 @@ final class RMRequest {
     ///   - queryParamters: Collection of query paramters
     public init(
         endpoint: RMEndpoint,
-        pathComponents: Set<String> = [],
+        pathComponents: [String] = [],
         queryParamters: [URLQueryItem] = []
     ) {
         self.endpoint = endpoint
@@ -89,4 +88,8 @@ final class RMRequest {
         self.queryParamters = queryParamters
     }
     
+}
+
+extension RMRequest {
+    static let listCharactersRequest = RMRequest(endpoint: .character)
 }
