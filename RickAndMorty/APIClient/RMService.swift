@@ -26,8 +26,7 @@ final class RMService {
     ///   - request: Request instance
     ///   - type: The type of object we except to get back
     ///   - completion: Callback with data or error
-    public func execute<T: Codable>(
-        _ request: RMRequest,
+    public func execute<T: Codable>(_ request: RMRequest,
         expecting type: T.Type, // T.Type refers to the the type of T, not an instance of T
         completion: @escaping (Result<T, Error>) -> Void) {
             // if the .success asign to urlRequest, otherqise return a custom failure

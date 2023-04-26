@@ -26,6 +26,7 @@ final class RMRequest {
     /// Query arguments for API, if any
     private let queryParamters: [URLQueryItem]
     
+    // READ-ONLY COMPUTED PROPERTY
     /// Constructed url for the api request in string format
     private var urlString: String {
         

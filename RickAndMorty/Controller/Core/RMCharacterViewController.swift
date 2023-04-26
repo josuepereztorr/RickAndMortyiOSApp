@@ -8,22 +8,39 @@
 import UIKit
 
 /// Controller to show and search for Characters
+// UIViewController - An object that manages a view hierarchy for your UIKit app.
+// THIS CONTROLLER CONTAINS THE RMCHARACTERLISTVIEW
 final class RMCharacterViewController: UIViewController {
-
+    
+    // UIView that contains the UICollectionView and the UIActivityIndicatorView
+    private let characterListView = RMCharacterListView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         title = "Characters"
         
-        RMService.shared.execute(.listCharactersRequest, expecting: RMGetAllCharactersResponse.self) { result in
-            switch result {
-            case .success(let model):
-                print("Total: " + String(model.info.count))
-                print("Page result count: " + String(model.results.count))
-            case .failure(let error):
-                print(String(describing: error))
-            }
-        }
+        setUpView()
+
+    }
+    
+    // characterListView encapsulates the loading spinner and a UICollectionView
+    private func setUpView() {
+        // sets the UIView that the controller manages
+        view.backgroundColor = .systemBackground
+        
+        // addSubView - Adds a view to the end of the receiver’s list of subviews.
+        view.addSubview(characterListView)
+        
+        // the characterListView achors must match the ViewControllers layout guide anchors.
+        // https://www.hackingwithswift.com/articles/140/the-auto-layout-cheat-sheet
+        NSLayoutConstraint.activate([
+            // The layout guide representing the portion of your view that is unobscured by bars and other content.
+            // safeAreaLayoutGuide - The layout guide representing the portion of your view that is unobscured by bars and other content.
+            characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            characterListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            characterListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            characterListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 
 }
