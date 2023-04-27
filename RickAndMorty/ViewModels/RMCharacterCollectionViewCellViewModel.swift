@@ -22,7 +22,7 @@ final class RMCharacterCollectionViewCellViewModel {
     // we are using a model for characterStatus but our view (RMCharacterCollectionViewCell) only cares about the "raw" string
     public var characterStatusText: String {
         // returns a String ex. "Alive"
-        return characterStatus.rawValue
+        return "Status: \(characterStatus.text)"
     }
     
     public func fetchImage(completion: @escaping (Result<Data, Error>) -> Void) {

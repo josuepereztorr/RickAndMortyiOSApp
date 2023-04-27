@@ -8,7 +8,14 @@
 import Foundation
 
 struct RMGetAllCharactersResponse: Codable {
-    
+    /* this is how the API response will look like
+        {
+            info: {},
+            results: [
+                        {},{},{}...
+                     ]
+        }
+     */
     struct Info: Codable {
         let count: Int
         let pages: Int

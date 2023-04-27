@@ -29,12 +29,13 @@ final class RMService {
     public func execute<T: Codable>(_ request: RMRequest,
         expecting type: T.Type, // T.Type refers to the the type of T, not an instance of T
         completion: @escaping (Result<T, Error>) -> Void) {
+        
             // if the .success asign to urlRequest, otherqise return a custom failure
             guard let urlRequest = self.request(from: request) else {
                 completion(.failure(RMServiceError.failedToCreateRequest))
                 return
             }
-            
+        
             let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
                 guard let data = data, error == nil else {
                     completion(.failure(error ?? RMServiceError.FailedToGetData))

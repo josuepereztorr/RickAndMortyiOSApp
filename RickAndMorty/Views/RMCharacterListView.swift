@@ -12,7 +12,7 @@ final class RMCharacterListView: UIView {
     
     // INSTANCE OF VIEW MODEL
     // View Model that has the UICollectionView DataSource and Delegate
-    private let viewModel = CharacterListViewViewModel()
+    private let viewModel = RMCharacterListViewViewModel()
     
     // https://docs.swift.org/swift-book/documentation/the-swift-programming-language/initialization#Setting-a-Default-Property-Value-with-a-Closure-or-Function
     // DEFAULT PROPERTY BY USING A CLOSURE
@@ -78,6 +78,8 @@ final class RMCharacterListView: UIView {
         // starts the animation of the progress indicator when the CharacterListView is created
         spinner.startAnimating()
         
+        viewModel.delegate = self
+        
         // TALKS TO THE VIEW MODEL
         // makes the API request for the data.
         viewModel.fetchCharacters()
@@ -119,18 +121,20 @@ final class RMCharacterListView: UIView {
         // The delegate object is responsible for managing selection behavior and interactions with individual items.
         collectionView.delegate = viewModel
         
-        // An object that manages the execution of tasks serially or concurrently on your app's main thread or on a background thread.
-        // runs the block of code after 2 seconds.
-        // TODO: - Left off at video #7
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            self.spinner.stopAnimating()
-            
-            self.collectionView.isHidden = false
-            
-            UIView.animate(withDuration: 0.4) {
-                self.collectionView.alpha = 1
-            }
-        })
     }
     
+}
+
+extension RMCharacterListView: RMCharacterListViewModelVieModelDelegate {
+    func didLoadInitialCharacters() {
+        
+        spinner.stopAnimating()
+        
+        collectionView.isHidden = false
+        collectionView.reloadData() // initial fetch
+
+        UIView.animate(withDuration: 0.4) {
+            self.collectionView.alpha = 1
+        }
+    }
 }

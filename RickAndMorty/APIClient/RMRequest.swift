@@ -15,6 +15,8 @@ final class RMRequest {
         static let baseUrl = "https://rickandmortyapi.com/api"
     }
     
+    static public let test = "test"
+    
     /// Desired endpoint
     private let endpoint: RMEndpoint
     
@@ -73,7 +75,6 @@ final class RMRequest {
     // MARK: - Public
     
     // since pathComponents and queryParameters are optional, we are defaulting to a empty array
-    
     /// Construct request
     /// - Parameters:
     ///   - endpoint: Target endpoint
@@ -92,5 +93,6 @@ final class RMRequest {
 }
 
 extension RMRequest {
+    // for testing
     static let listCharactersRequest = RMRequest(endpoint: .character)
 }
